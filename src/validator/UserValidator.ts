@@ -100,4 +100,18 @@ export class UserValidator extends Validator {
     }
     next();
   }
+
+  loginWithFacebook(
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ) {
+    req.checkBody("userId", "userId should not be empty").notEmpty();
+    req.checkBody("userDate", "user data should not be empty").notEmpty();
+    const validationErrors = req.validationErrors();
+    if (validationErrors) {
+      HttpResponse.respondError(res, validationErrors, StatusCodes.BAD_REQUEST);
+    }
+    next();
+  }
 }
