@@ -1,6 +1,6 @@
 import express from "express";
-import { UserValidator } from "../validator/UserValidator";
-import { UserController } from "../controller/UserController";
+import { UserValidator } from "../validator/AuthValidator";
+import { UserController } from "../controller/AuthController";
 const userRouter = express.Router();
 const userController = new UserController();
 const userValidator = new UserValidator();
@@ -29,4 +29,5 @@ userRouter.post(
   userValidator.loginWithGoogle,
   userController.loginWithGoogle
 );
+
 export default userRouter;

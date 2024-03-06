@@ -2,7 +2,7 @@ import http from "http";
 import express from "express";
 import bodyParser from "body-parser";
 import validator from "express-validator";
-import UserRouter from "./router/user";
+import UserRouter from "./router/auth";
 import mongoose from "mongoose";
 class App {
   httpPort: number = 3000;

@@ -197,7 +197,8 @@ export class UserController {
       if (!user) {
         HttpResponse.respondError(res, "invalid token", StatusCodes.NOT_FOUND);
       }
-      console.log(user.email);
+      // already login user
+
       await User.create({
         name: user.name ? user.name : user.email,
         email: user.email,
@@ -207,6 +208,32 @@ export class UserController {
       const data: UserType | null = await User.findOne({ email: user.email });
       const token = helper.getToken({ _id: data?._id });
       HttpResponse.respondResult(res, token, StatusCodes.OK);
+    } catch (error) {
+      HttpResponse.respondError(res, error, StatusCodes.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  async loginWithFacebook(req: express.Request, res: express.Response) {
+    let user;
+    try {
+      const userData: any = await User.find({ userId: req.body.userId });
+      // for new user login
+      if (!userData) {
+        user = {
+          userId: req.body.userId,
+          username: req.body.userData.username,
+          profile: req.body.userData.profile,
+          phone: req.body.userData.phone || null,
+          email: req.body.userData.email || null,
+          authType: "facebook-auth",
+        };
+        const data = await User.create(user);
+        const token = helper.getToken({ _id: data._id });
+        HttpResponse.respondResult(res, token, StatusCodes.OK);
+      } else {
+        const token = helper.getToken({ _id: userData._id });
+        HttpResponse.respondResult(res, token, StatusCodes.OK);
+      }
     } catch (error) {
       HttpResponse.respondError(res, error, StatusCodes.INTERNAL_SERVER_ERROR);
     }
