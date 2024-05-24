@@ -238,4 +238,6 @@ export class UserController {
       HttpResponse.respondError(res, error, StatusCodes.INTERNAL_SERVER_ERROR);
     }
   }
+
+  async testGetToken(req: express.Request, res: express.Response) {}
 }

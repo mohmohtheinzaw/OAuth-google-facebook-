@@ -29,5 +29,10 @@ userRouter.post(
   userValidator.loginWithGoogle,
   userController.loginWithGoogle
 );
+userRouter.post(
+  "/login-with-facebook",
+  userValidator.loginWithFacebook,
+  userController.loginWithFacebook
+);
 
 export default userRouter;

@@ -4,6 +4,7 @@ import bodyParser from "body-parser";
 import validator from "express-validator";
 import UserRouter from "./router/auth";
 import mongoose from "mongoose";
+import passport from "passport";
 class App {
   httpPort: number = 3000;
   app: any;
@@ -45,6 +46,8 @@ class App {
     this.app.use(bodyParser.json());
     this.app.use(bodyParser.urlencoded({ extended: true }));
     this.app.use(validator());
+    this.app.use(passport.initialize());
+    this.app.use(passport.session());
 
     //routes
     this.app.use("/api/user", UserRouter);
@@ -65,4 +68,5 @@ class App {
   }
 }
 const expressApp = new App();
+
 expressApp.startServer();

@@ -7,7 +7,7 @@ const http_1 = __importDefault(require("http"));
 const express_1 = __importDefault(require("express"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const express_validator_1 = __importDefault(require("express-validator"));
-const user_1 = __importDefault(require("./router/user"));
+const auth_1 = __importDefault(require("./router/auth"));
 const mongoose_1 = __importDefault(require("mongoose"));
 class App {
     constructor() {
@@ -41,7 +41,7 @@ class App {
         this.app.use(body_parser_1.default.urlencoded({ extended: true }));
         this.app.use((0, express_validator_1.default)());
         //routes
-        this.app.use("/api/user", user_1.default);
+        this.app.use("/api/user", auth_1.default);
     }
     startServer() {
         //connect to mongodb
